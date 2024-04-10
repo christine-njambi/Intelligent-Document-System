@@ -1,7 +1,180 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <title>School Management System Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Your additional CSS styles here */
+        .chart-card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .chart-card-header {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .chart-card-body {
+            padding: 20px;
+        }
+        /* Customize as needed */
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">School Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <!-- Add Students link -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'display_class_data' %}">Class Management</a>
+                </li>
+                <!-- Create a Class link -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'display_student_data' %}">Student Management</a>
+                </li>
+                <!-- Create a Class link -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'display_transaction_data' %}">Transactions</a>
+                </li>
+                <!-- More navigation items for other functionalities -->
+                <!-- ... -->
+            </ul>
+            <!-- Logout button -->
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="{% url 'user-logout' %}">Logout</a>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="dashboard-container mt-4">
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card chart-card">
+                        <div class="chart-card-header">
+                            <h5 class="card-title">Bar Chart</h5>
+                        </div>
+                        <div class="chart-card-body">
+                            <canvas id="barChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card chart-card">
+                        <div class="chart-card-header">
+                            <h5 class="card-title">Pie Chart</h5>
+                        </div>
+                        <div class="chart-card-body">
+                            <canvas id="pieChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card chart-card">
+                        <div class="chart-card-header">
+                            <h5 class="card-title">Line Chart</h5>
+                        </div>
+                        <div class="chart-card-body">
+                            <canvas id="lineChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h1> This is my dashboard. </h1>
+    <script>
+        // Dummy data for the charts
+        const barChartData = {
+            labels: ['Class A', 'Class B', 'Class C', 'Class D'],
+            datasets: [{
+                label: 'Number of Students',
+                data: [30, 45, 25, 55],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
 
-    <a href="{% url 'user-logout' %}"> Logout here </a>
+        const pieChartData = {
+            labels: ['Math', 'Science', 'English'],
+            datasets: [{
+                label: 'Subjects',
+                data: [40, 30, 20],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
 
+        const lineChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'Attendance',
+                data: [80, 75, 90, 85, 70, 95],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false
+            }]
+        };
+
+        // Generate charts using Chart.js
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: pieChartData
+        });
+
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: lineChartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
 </html>

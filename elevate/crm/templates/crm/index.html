@@ -1,11 +1,68 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-    <h1> This is the homepage </h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
-    <a href="{% url 'register' %}"> Register here </a>
+        .container {
+            text-align: center;
+        }
 
-    <br> <br> 
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    <a href="{% url 'my-login' %}"> Login here </a>
+        p {
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        .school-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fphotos-images%2Fschool-building.html&psig=AOvVaw2PUKy1ChNUpTNQNX7-DGF2&ust=1701236709836000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCKCFydn-5YIDFQAAAAAdAAAAABAE" alt="School Image" class="school-img">
+        <h1>Welcome to Our School Website</h1>
+        <p>Explore and learn with us!</p>
+        <a href="{% url 'register' %}">Register here</a>
+        <a href="{% url 'my-login' %}">Login here</a>
+    </div>
+</body>
 
 </html>

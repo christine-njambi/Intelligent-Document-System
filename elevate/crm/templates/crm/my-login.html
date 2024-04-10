@@ -1,18 +1,78 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-    <h1> Login here </h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    <form method="POST" autocomplete="off">
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-        {% csrf_token %}
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-        {{loginform.as_p}}
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        <input type="submit" value="Login"/>
+        input[type="text"],
+        input[type="password"] {
+            width: 300px;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
 
+        input[type="submit"] {
+            width: 150px;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    </form>
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 
-
+<body>
+    <div class="login-container">
+        <h1>Login here</h1>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{ loginform.as_p }}
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+</body>
 
 </html>
